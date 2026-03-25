@@ -702,7 +702,7 @@
           resultBubble.style.display = 'block';
           // Re-trigger animation
           resultBubble.style.animation = 'none';
-          // Force reflow
+          // Accessing offsetWidth forces the browser to recalculate layout, allowing the animation to restart
           void resultBubble.offsetWidth;
           resultBubble.style.animation = 'popIn .4s cubic-bezier(.68,-.55,.27,1.55)';
         }
