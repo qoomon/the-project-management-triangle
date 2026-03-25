@@ -1,0 +1,750 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Project Management Triangle</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bangers&family=Comic+Neue:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Comic Neue', cursive, sans-serif;
+      background: #f5f0e8;
+      color: #1a1a2e;
+      overflow-x: hidden;
+    }
+
+    /* ── HEADER ── */
+    .header {
+      position: relative;
+      background:
+        radial-gradient(circle 2px, #c0560088 1px, transparent 1px),
+        linear-gradient(135deg, #f7a400, #f06543);
+      background-size: 12px 12px, 100% 100%;
+      text-align: center;
+      padding: 48px 24px 32px;
+      overflow: hidden;
+    }
+
+    .header h1 {
+      font-family: 'Bangers', cursive;
+      font-size: clamp(2.4rem, 8vw, 4.5rem);
+      line-height: 1;
+      color: #1a1a2e;
+      text-shadow: 3px 3px 0 rgba(0,0,0,.12);
+      letter-spacing: 2px;
+    }
+
+    .header h1 span {
+      display: block;
+      color: #ffe156;
+      font-size: 1.1em;
+      text-shadow: 3px 3px 0 rgba(0,0,0,.25);
+    }
+
+    .header .subtitle {
+      font-weight: 700;
+      font-size: clamp(.75rem, 2vw, 1rem);
+      letter-spacing: 2px;
+      color: #fff;
+      margin-top: 8px;
+      text-transform: uppercase;
+    }
+
+    /* PICK 2! badge */
+    .pick-badge {
+      position: absolute;
+      top: 18px;
+      right: 18px;
+      width: 72px;
+      height: 72px;
+      background: #2ecc71;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Bangers', cursive;
+      font-size: 1.25rem;
+      color: #fff;
+      transform: rotate(12deg);
+      border: 3px solid #1a1a2e;
+      box-shadow: 3px 3px 0 #1a1a2e;
+      animation: badgeBounce 2s ease-in-out infinite;
+      z-index: 2;
+    }
+
+    @keyframes badgeBounce {
+      0%, 100% { transform: rotate(12deg) scale(1); }
+      50% { transform: rotate(12deg) scale(1.1); }
+    }
+
+    /* ── MAIN CONTENT ── */
+    .content {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 32px 16px;
+    }
+
+    /* ── THE RULE SECTION ── */
+    .rule-section {
+      position: relative;
+      background: #fff;
+      border: 3px solid #1a1a2e;
+      border-radius: 16px;
+      padding: 36px 28px 28px;
+      margin-bottom: 32px;
+      box-shadow: 5px 5px 0 #1a1a2e;
+      animation: fadeSlideUp .6s ease-out;
+    }
+
+    .rule-label {
+      position: absolute;
+      top: -14px;
+      left: 20px;
+      background: #f06543;
+      color: #fff;
+      font-family: 'Bangers', cursive;
+      font-size: .9rem;
+      padding: 4px 14px;
+      border-radius: 8px;
+      border: 2px solid #1a1a2e;
+      letter-spacing: 1px;
+    }
+
+    .rule-section p {
+      text-align: center;
+      font-size: 1.05rem;
+      line-height: 1.6;
+    }
+
+    .rule-section strong {
+      color: #3b82f6;
+      font-size: 1.1em;
+    }
+
+    /* ── RESULT BUBBLE ── */
+    .result-bubble-wrapper {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 16px;
+      min-height: 130px;
+    }
+
+    .result-bubble {
+      position: relative;
+      background: linear-gradient(135deg, #9b59b6, #8e44ad);
+      color: #fff;
+      border: 3px solid #1a1a2e;
+      border-radius: 16px;
+      padding: 20px 28px;
+      max-width: 480px;
+      text-align: center;
+      box-shadow: 5px 5px 0 #1a1a2e;
+      animation: popIn .4s cubic-bezier(.68,-.55,.27,1.55);
+    }
+
+    .result-bubble::after {
+      content: '';
+      position: absolute;
+      bottom: -18px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 0;
+      height: 0;
+      border-left: 16px solid transparent;
+      border-right: 16px solid transparent;
+      border-top: 18px solid #8e44ad;
+      filter: drop-shadow(2px 2px 0 #1a1a2e);
+    }
+
+    .result-bubble h3 {
+      font-family: 'Bangers', cursive;
+      font-size: 1.35rem;
+      letter-spacing: 1px;
+      margin-bottom: 6px;
+    }
+
+    .result-bubble p {
+      font-size: .92rem;
+      line-height: 1.5;
+      opacity: .92;
+    }
+
+    /* POW badge */
+    .pow-badge {
+      position: absolute;
+      top: -16px;
+      right: -12px;
+      background: #ffe156;
+      color: #1a1a2e;
+      font-family: 'Bangers', cursive;
+      font-size: .85rem;
+      padding: 4px 12px;
+      border-radius: 10px;
+      border: 2px solid #1a1a2e;
+      transform: rotate(8deg);
+      box-shadow: 2px 2px 0 #1a1a2e;
+      animation: shake .5s ease-in-out infinite alternate;
+    }
+
+    @keyframes shake {
+      0% { transform: rotate(8deg) scale(1); }
+      100% { transform: rotate(-4deg) scale(1.08); }
+    }
+
+    @keyframes popIn {
+      0% { transform: scale(0); opacity: 0; }
+      100% { transform: scale(1); opacity: 1; }
+    }
+
+    /* ── TRIANGLE ── */
+    .triangle-container {
+      display: flex;
+      justify-content: center;
+      margin: 40px 0 24px;
+    }
+
+    .triangle-svg {
+      width: 100%;
+      max-width: 520px;
+      height: auto;
+    }
+
+    .triangle-svg .tri-main {
+      fill: none;
+      stroke: #1a1a2e;
+      stroke-width: 3;
+      filter: drop-shadow(3px 3px 0 rgba(0,0,0,.15));
+    }
+
+    .triangle-svg .corner-box {
+      cursor: pointer;
+      transition: transform .2s, filter .2s;
+    }
+
+    .triangle-svg .corner-box:hover {
+      filter: brightness(1.15) drop-shadow(0 0 8px rgba(255,255,255,.5));
+    }
+
+    .triangle-svg .corner-box.active {
+      filter: brightness(1.2) drop-shadow(0 0 12px rgba(255,225,86,.7));
+    }
+
+    .corner-rect {
+      rx: 8;
+      ry: 8;
+      stroke: #1a1a2e;
+      stroke-width: 2.5;
+    }
+
+    .corner-text {
+      font-family: 'Bangers', cursive;
+      font-size: 16px;
+      fill: #fff;
+      text-anchor: middle;
+      pointer-events: none;
+      letter-spacing: 1px;
+    }
+
+    .edge-label {
+      font-family: 'Bangers', cursive;
+      font-size: 13px;
+      fill: #e74c3c;
+      text-anchor: middle;
+      pointer-events: none;
+      letter-spacing: .5px;
+    }
+
+    .edge-label.expensive { fill: #e67e22; }
+    .edge-label.low-priority { fill: #e74c3c; }
+    .edge-label.low-quality { fill: #27ae60; }
+
+    /* Sparkle lines around triangle */
+    .sparkle-line {
+      stroke: #1a1a2e;
+      stroke-width: 1.5;
+      stroke-linecap: round;
+      animation: sparkleFade 1.5s ease-in-out infinite alternate;
+    }
+
+    @keyframes sparkleFade {
+      0% { opacity: .3; }
+      100% { opacity: 1; }
+    }
+
+    /* Inner Venn-like circles */
+    .inner-region {
+      fill: rgba(255,255,255,.25);
+      stroke: #1a1a2e;
+      stroke-width: 1.5;
+      stroke-dasharray: 6 4;
+    }
+
+    /* ── BUTTONS ── */
+    .buttons-row {
+      display: flex;
+      justify-content: center;
+      gap: 16px;
+      margin-bottom: 16px;
+      flex-wrap: wrap;
+    }
+
+    .pick-btn {
+      font-family: 'Bangers', cursive;
+      font-size: 1.15rem;
+      letter-spacing: 1px;
+      padding: 12px 32px;
+      border: 3px solid #1a1a2e;
+      border-radius: 12px;
+      cursor: pointer;
+      box-shadow: 4px 4px 0 #1a1a2e;
+      transition: all .15s;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .pick-btn::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(120deg, transparent 40%, rgba(255,255,255,.35) 50%, transparent 60%);
+      transform: translateX(-100%);
+      transition: transform .5s;
+    }
+
+    .pick-btn:hover::before {
+      transform: translateX(100%);
+    }
+
+    .pick-btn:active {
+      transform: translate(2px, 2px);
+      box-shadow: 2px 2px 0 #1a1a2e;
+    }
+
+    .pick-btn.active {
+      transform: translate(2px, 2px);
+      box-shadow: 2px 2px 0 #1a1a2e;
+      outline: 3px solid #ffe156;
+      outline-offset: 2px;
+    }
+
+    .btn-fast { background: #3b82f6; color: #fff; }
+    .btn-cheap { background: #2ecc71; color: #fff; }
+    .btn-good { background: #ffe156; color: #1a1a2e; }
+
+    .btn-fast.active { background: #2563eb; }
+    .btn-cheap.active { background: #22a55b; }
+    .btn-good.active { background: #f0d32a; }
+
+    /* ── YOU PICKED ── */
+    .you-picked {
+      text-align: center;
+      margin-bottom: 36px;
+      font-weight: 700;
+      font-size: 1rem;
+      min-height: 38px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .you-picked .picked-tag {
+      display: inline-block;
+      font-family: 'Bangers', cursive;
+      font-size: .85rem;
+      padding: 4px 14px;
+      border-radius: 20px;
+      border: 2px solid #1a1a2e;
+      color: #fff;
+      letter-spacing: 1px;
+      animation: popIn .3s cubic-bezier(.68,-.55,.27,1.55);
+    }
+
+    .picked-tag.fast { background: #3b82f6; }
+    .picked-tag.cheap { background: #2ecc71; }
+    .picked-tag.good { background: #daa520; }
+
+    /* ── INFO CARDS ── */
+    .info-cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 16px;
+      margin-bottom: 36px;
+    }
+
+    .info-card {
+      background: #fff;
+      border: 3px solid #1a1a2e;
+      border-radius: 14px;
+      padding: 22px 18px 18px;
+      position: relative;
+      box-shadow: 4px 4px 0 #1a1a2e;
+      transition: transform .2s, box-shadow .2s;
+    }
+
+    .info-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 4px 8px 0 #1a1a2e;
+    }
+
+    .info-card .icon-circle {
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1rem;
+      border: 2px solid #1a1a2e;
+    }
+
+    .info-card h4 {
+      font-family: 'Bangers', cursive;
+      font-size: 1.1rem;
+      letter-spacing: 1px;
+      margin-bottom: 8px;
+    }
+
+    .info-card p {
+      font-size: .88rem;
+      line-height: 1.55;
+      color: #444;
+    }
+
+    .card-time { border-left: 5px solid #3b82f6; }
+    .card-time .icon-circle { background: #3b82f6; color: #fff; }
+
+    .card-cost { border-left: 5px solid #2ecc71; }
+    .card-cost .icon-circle { background: #2ecc71; color: #fff; }
+
+    .card-quality { border-left: 5px solid #f7a400; }
+    .card-quality .icon-circle { background: #f7a400; color: #fff; }
+
+    /* ── KEY TAKEAWAY ── */
+    .takeaway {
+      background: linear-gradient(135deg, #f7a400, #f06543, #e74c3c);
+      border: 3px solid #1a1a2e;
+      border-radius: 18px;
+      padding: 36px 28px 32px;
+      text-align: center;
+      color: #fff;
+      margin-bottom: 36px;
+      box-shadow: 5px 5px 0 #1a1a2e;
+      position: relative;
+    }
+
+    .takeaway-label {
+      display: inline-block;
+      background: #ffe156;
+      color: #1a1a2e;
+      font-family: 'Bangers', cursive;
+      font-size: .9rem;
+      padding: 4px 18px;
+      border-radius: 10px;
+      border: 2px solid #1a1a2e;
+      letter-spacing: 1px;
+      margin-bottom: 14px;
+    }
+
+    .takeaway p {
+      font-size: 1.1rem;
+      font-weight: 700;
+      line-height: 1.6;
+      max-width: 560px;
+      margin: 0 auto;
+    }
+
+    /* ── FOOTER ── */
+    .footer {
+      text-align: center;
+      padding: 20px;
+      background: #1a1a2e;
+      color: #fff;
+      font-family: 'Bangers', cursive;
+      font-size: .95rem;
+      letter-spacing: 2px;
+    }
+
+    /* ── ANIMATIONS ── */
+    @keyframes fadeSlideUp {
+      0% { opacity: 0; transform: translateY(24px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+
+    .fade-in {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity .5s ease-out, transform .5s ease-out;
+    }
+
+    .fade-in.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Responsive */
+    @media (max-width: 500px) {
+      .pick-badge { width: 56px; height: 56px; font-size: 1rem; top: 10px; right: 10px; }
+      .content { padding: 20px 10px; }
+      .pick-btn { padding: 10px 22px; font-size: 1rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header class="header">
+    <div class="pick-badge">PICK 2!</div>
+    <h1>
+      THE PROJECT MANAGEMENT
+      <span>TRIANGLE</span>
+    </h1>
+    <p class="subtitle">A.K.A. The Iron Triangle or Triple Constraint</p>
+  </header>
+
+  <div class="content">
+    <!-- THE RULE -->
+    <section class="rule-section fade-in">
+      <div class="rule-label">THE RULE</div>
+      <p>
+        In project management, you can only optimize for <strong>TWO OUT OF THREE</strong>
+        constraints: Speed, Cost, and Quality. Click on the corners of the triangle to
+        explore the trade-offs!
+      </p>
+    </section>
+
+    <!-- RESULT BUBBLE -->
+    <div class="result-bubble-wrapper" id="resultWrapper">
+      <div class="result-bubble" id="resultBubble" style="display:none;">
+        <div class="pow-badge">POW!</div>
+        <h3 id="resultTitle"></h3>
+        <p id="resultDesc"></p>
+      </div>
+    </div>
+
+    <!-- TRIANGLE -->
+    <div class="triangle-container fade-in">
+      <svg class="triangle-svg" viewBox="0 0 500 420" xmlns="http://www.w3.org/2000/svg">
+        <!-- Sparkle lines -->
+        <line class="sparkle-line" x1="248" y1="52" x2="240" y2="32" style="animation-delay:.1s"/>
+        <line class="sparkle-line" x1="255" y1="50" x2="258" y2="28" style="animation-delay:.4s"/>
+        <line class="sparkle-line" x1="262" y1="54" x2="275" y2="36" style="animation-delay:.7s"/>
+        <line class="sparkle-line" x1="85" y1="340" x2="68" y2="350" style="animation-delay:.2s"/>
+        <line class="sparkle-line" x1="78" y1="330" x2="58" y2="338" style="animation-delay:.6s"/>
+        <line class="sparkle-line" x1="415" y1="340" x2="432" y2="350" style="animation-delay:.3s"/>
+        <line class="sparkle-line" x1="422" y1="330" x2="442" y2="338" style="animation-delay:.8s"/>
+
+        <!-- Main triangle -->
+        <polygon class="tri-main" points="250,70 80,350 420,350"
+          fill="url(#triGrad)" stroke="#1a1a2e" stroke-width="3"/>
+
+        <defs>
+          <linearGradient id="triGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" style="stop-color:#e8e4f0;stop-opacity:.6"/>
+            <stop offset="100%" style="stop-color:#d5d0e0;stop-opacity:.4"/>
+          </linearGradient>
+        </defs>
+
+        <!-- Inner regions (Venn-style) -->
+        <ellipse class="inner-region" cx="250" cy="200" rx="65" ry="50"/>
+        <ellipse class="inner-region" cx="205" cy="280" rx="60" ry="45"/>
+        <ellipse class="inner-region" cx="295" cy="280" rx="60" ry="45"/>
+
+        <!-- Edge labels -->
+        <text class="edge-label low-quality" x="148" y="205" transform="rotate(-52,148,205)">LOW QUALITY</text>
+        <text class="edge-label expensive" x="352" y="205" transform="rotate(52,352,205)">EXPENSIVE</text>
+        <text class="edge-label low-priority" x="250" y="375">LOW PRIORITY</text>
+
+        <!-- Corner: DONE QUICKLY (top) -->
+        <g class="corner-box" data-pick="fast" id="cornerFast">
+          <rect class="corner-rect" x="200" y="80" width="100" height="52" fill="#3b82f6"/>
+          <text class="corner-text" x="250" y="100">DONE</text>
+          <text class="corner-text" x="250" y="120">QUICKLY</text>
+        </g>
+
+        <!-- Corner: LOW COST (bottom-left) -->
+        <g class="corner-box" data-pick="cheap" id="cornerCheap">
+          <rect class="corner-rect" x="62" y="310" width="100" height="52" fill="#2ecc71"/>
+          <text class="corner-text" x="112" y="330">LOW</text>
+          <text class="corner-text" x="112" y="350">COST</text>
+        </g>
+
+        <!-- Corner: HIGH QUALITY (bottom-right) -->
+        <g class="corner-box" data-pick="good" id="cornerGood">
+          <rect class="corner-rect" x="338" y="310" width="100" height="52" fill="#f7a400"/>
+          <text class="corner-text" x="388" y="330">HIGH</text>
+          <text class="corner-text" x="388" y="350">QUALITY</text>
+        </g>
+      </svg>
+    </div>
+
+    <!-- BUTTONS -->
+    <div class="buttons-row fade-in">
+      <button class="pick-btn btn-fast" data-pick="fast">FAST</button>
+      <button class="pick-btn btn-cheap" data-pick="cheap">CHEAP</button>
+      <button class="pick-btn btn-good" data-pick="good">GOOD</button>
+    </div>
+
+    <!-- YOU PICKED -->
+    <div class="you-picked fade-in" id="youPicked">
+      <span>Select two options above!</span>
+    </div>
+
+    <!-- INFO CARDS -->
+    <div class="info-cards fade-in">
+      <div class="info-card card-time">
+        <div class="icon-circle">⏱</div>
+        <h4>TIME (SPEED)</h4>
+        <p>How quickly the project needs to be delivered. Shorter timelines require more resources or reduced scope.</p>
+      </div>
+      <div class="info-card card-cost">
+        <div class="icon-circle">💰</div>
+        <h4>COST (BUDGET)</h4>
+        <p>The financial resources allocated to the project. Lower budgets mean longer timelines or reduced features.</p>
+      </div>
+      <div class="info-card card-quality">
+        <div class="icon-circle">✅</div>
+        <h4>QUALITY (SCOPE)</h4>
+        <p>The level of features, polish, and overall excellence. Higher quality requires more time or money.</p>
+      </div>
+    </div>
+
+    <!-- KEY TAKEAWAY -->
+    <section class="takeaway fade-in">
+      <div class="takeaway-label">KEY TAKEAWAY</div>
+      <p>"Pick any two"—this constraint forces project managers to make
+        strategic decisions. Understanding these trade-offs helps set
+        realistic expectations!</p>
+    </section>
+  </div>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    INTERACTIVE PROJECT MANAGEMENT TRIANGLE VISUALIZATION
+  </footer>
+
+  <script>
+    // ── State ──
+    const selected = new Set();
+
+    // ── Trade-off outcomes ──
+    const outcomes = {
+      'fast+cheap': {
+        title: 'CHEAP & QUICK = LOW QUALITY!',
+        desc: "You'll get it fast and cheap, but don't expect perfection! Bugs, shortcuts, and technical debt await…"
+      },
+      'fast+good': {
+        title: 'FAST & GOOD = EXPENSIVE!',
+        desc: "You want it quick and polished? Be ready to open that wallet wide — premium speed costs premium money!"
+      },
+      'cheap+good': {
+        title: 'CHEAP & GOOD = SLOW!',
+        desc: "Quality on a budget? Sure — but you'll be waiting a while. Great things take time when resources are limited."
+      }
+    };
+
+    // ── DOM refs ──
+    const btns = document.querySelectorAll('.pick-btn');
+    const corners = document.querySelectorAll('.corner-box');
+    const resultBubble = document.getElementById('resultBubble');
+    const resultTitle = document.getElementById('resultTitle');
+    const resultDesc = document.getElementById('resultDesc');
+    const youPicked = document.getElementById('youPicked');
+
+    function getOutcomeKey() {
+      const arr = [...selected].sort();
+      return arr.join('+');
+    }
+
+    function updateUI() {
+      // Buttons
+      btns.forEach(btn => {
+        btn.classList.toggle('active', selected.has(btn.dataset.pick));
+      });
+
+      // Triangle corners
+      corners.forEach(c => {
+        c.classList.toggle('active', selected.has(c.dataset.pick));
+      });
+
+      // You Picked
+      if (selected.size === 0) {
+        youPicked.innerHTML = '<span>Select two options above!</span>';
+      } else {
+        const labels = { fast: 'FAST', cheap: 'CHEAP', good: 'GOOD' };
+        const classes = { fast: 'fast', cheap: 'cheap', good: 'good' };
+        let html = '<span>YOU PICKED:</span> ';
+        selected.forEach(s => {
+          html += `<span class="picked-tag ${classes[s]}">${labels[s]}</span> `;
+        });
+        youPicked.innerHTML = html;
+      }
+
+      // Result bubble
+      if (selected.size === 2) {
+        const key = getOutcomeKey();
+        const outcome = outcomes[key];
+        if (outcome) {
+          resultTitle.textContent = outcome.title;
+          resultDesc.textContent = outcome.desc;
+          resultBubble.style.display = 'block';
+          // Re-trigger animation
+          resultBubble.style.animation = 'none';
+          // Force reflow
+          void resultBubble.offsetWidth;
+          resultBubble.style.animation = 'popIn .4s cubic-bezier(.68,-.55,.27,1.55)';
+        }
+      } else {
+        resultBubble.style.display = 'none';
+      }
+    }
+
+    function togglePick(pick) {
+      if (selected.has(pick)) {
+        selected.delete(pick);
+      } else {
+        if (selected.size >= 2) {
+          // Remove the first one added
+          const first = selected.values().next().value;
+          selected.delete(first);
+        }
+        selected.add(pick);
+      }
+      updateUI();
+    }
+
+    // Button clicks
+    btns.forEach(btn => {
+      btn.addEventListener('click', () => togglePick(btn.dataset.pick));
+    });
+
+    // Triangle corner clicks
+    corners.forEach(c => {
+      c.addEventListener('click', () => togglePick(c.dataset.pick));
+    });
+
+    // ── Intersection Observer for fade-in ──
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, { threshold: 0.15 });
+
+    document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+  </script>
+</body>
+</html>
