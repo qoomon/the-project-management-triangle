@@ -20,19 +20,29 @@
     good:  'good',
   };
 
+  /** Default outcome when no or only one constraint is selected. */
+  var DEFAULT_OUTCOME = {
+    title: 'PICK TWO!',
+    desc:  'Click on the corners to choose your constraints and discover the trade-off!',
+    badge: 'CHOOSE!',
+  };
+
   /** Trade-off outcomes keyed by the sorted pair of picks. */
   var OUTCOMES = {
     'cheap+fast': {
       title: 'CHEAP & QUICK = LOW QUALITY!',
-      desc:  "You'll get it fast and cheap, but don't expect perfection! Bugs, shortcuts, and technical debt await\u2026",
+      desc:  "You'll get it fast and cheap, but don't expect perfection! Bugs, shortcuts, and technical debt await...",
+      badge: 'POW!',
     },
     'fast+good': {
       title: 'FAST & GOOD = EXPENSIVE!',
-      desc:  "You want it quick and polished? Be ready to open that wallet wide \u2014 premium speed costs premium money!",
+      desc:  "Premium quality at lightning speed? That'll cost ya! Get ready to open that wallet wide...",
+      badge: 'KA-CHING!',
     },
     'cheap+good': {
       title: 'CHEAP & GOOD = SLOW!',
-      desc:  "Quality on a budget? Sure \u2014 but you'll be waiting a while. Great things take time when resources are limited.",
+      desc:  'Quality work on a budget is possible... if you\'ve got time to spare. Patience is a virtue!',
+      badge: 'TICK-TOCK!',
     },
   };
 
@@ -45,6 +55,7 @@
   var resultBubble = document.getElementById('resultBubble');
   var resultTitle  = document.getElementById('resultTitle');
   var resultDesc   = document.getElementById('resultDesc');
+  var powBadge     = document.getElementById('powBadge');
   var youPicked    = document.getElementById('youPicked');
 
   /* ── Helpers ── */
@@ -87,25 +98,29 @@
     youPicked.innerHTML = pickedHTML();
 
     /* Result bubble */
+    var outcome;
     if (selected.size === PICK_LIMIT) {
-      var key     = outcomeKey();
-      var outcome = OUTCOMES[key];
-      if (outcome) {
-        resultTitle.textContent = outcome.title;
-        resultDesc.textContent  = outcome.desc;
-        resultBubble.style.display = 'block';
-
-        /* Apply combo colour class */
-        resultBubble.className = 'result-bubble';
-        resultBubble.classList.add('combo-' + Array.from(selected).sort().join('-'));
-
-        /* Re-trigger pop-in animation */
-        resultBubble.style.animation = 'none';
-        void resultBubble.offsetWidth;            // force reflow
-        resultBubble.style.animation = '';
-      }
+      outcome = OUTCOMES[outcomeKey()];
     } else {
-      resultBubble.style.display = 'none';
+      outcome = DEFAULT_OUTCOME;
+    }
+
+    if (outcome) {
+      resultTitle.textContent = outcome.title;
+      resultDesc.textContent  = outcome.desc;
+      powBadge.textContent    = outcome.badge;
+      resultBubble.style.display = 'block';
+
+      /* Apply combo colour class */
+      resultBubble.className = 'result-bubble';
+      if (selected.size === PICK_LIMIT) {
+        resultBubble.classList.add('combo-' + Array.from(selected).sort().join('-'));
+      }
+
+      /* Re-trigger pop-in animation */
+      resultBubble.style.animation = 'none';
+      void resultBubble.offsetWidth;            // force reflow
+      resultBubble.style.animation = '';
     }
   }
 
